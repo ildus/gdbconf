@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+
+import sys
+import subprocess
+import re
+
+pid = None
+
+for line in sys.stdin:
+	m = re.search('\d{1}\d+', line)
+	if m:
+		pid = int(m.group(0))
+
+commands = '''source /tmp/gdb_breaks
+attach %s
+''' % pid
+
+with open('/tmp/gdb_commands', 'w') as f:
+	f.write(commands)
+
+#urxvt --hold -e sudo gdb -ix /tmp/gdb_init -x /tmp/gdb_commands --args postgres
+#subprocess.Popen(['urxvt', '-e', 'cgdb', '-x', '/tmp/gdb_commands'])
+subprocess.Popen(['termite', '-e', "gdb -x /tmp/gdb_commands"])

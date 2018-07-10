@@ -1,0 +1,3 @@
+\set pid 'SELECT pg_backend_pid();'
+\set gdb 'SELECT pg_backend_pid() \\g | pg_debug'
+\set Gdb 'SELECT pg_backend_pid() \\g | pg_debug'
